@@ -1,0 +1,62 @@
+Greenhouse gas emissions World Bank Database 
+
+-- Table: Emissions.GHG
+
+-- DROP TABLE IF EXISTS "Emissions"."GHG";
+
+CREATE TABLE IF NOT EXISTS "Emissions"."GHG"
+(
+    "Country_name" character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    "Country_code" character(10) COLLATE pg_catalog."default" NOT NULL,
+    "Indicator_name" character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    "Indicator_code" character(17) COLLATE pg_catalog."default" NOT NULL,
+    "1970" real,
+    "1980" real,
+    "1990" real,
+    "2000" real,
+    "2010" real,
+    "2018" real,
+    CONSTRAINT "GHG_pkey" PRIMARY KEY ("Country_name")
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS "Emissions"."GHG"
+    OWNER to postgres;
+
+-- Count number of rows in the table
+SELECT COUNT(*)
+FROM "Emissions"."GHG";
+
+-- Find distinct country names 
+
+SELECT DISTINCT "GHG"."Country_name"
+FROM "Emissions"."GHG"; 
+
+--Given that this dataset focuses only on greenhouse 
+gas emissions, the indicator name and code are the same 
+for all the rows. 
+However, inspecting the dataset would be advisable. 
+
+SELECT COUNT(DISTINCT "GHG"."Indicator_code")
+FROM "Emissions"."GHG";
+
+--To inspect for null values along all the numeric columns
+
+SELECT * 
+FROM "Emissions"."GHG"
+WHERE ("GHG"."1970" IS NULL AND 
+      "GHG"."1980" IS NULL AND
+	  "GHG"."1990" IS NULL AND
+	  "GHG"."2000" IS NULL AND
+	  "GHG"."2010" IS NULL AND
+	  "GHG"."2018" IS NULL);
+
+SELECT COUNT(*) 
+FROM "Emissions"."GHG"
+WHERE ("GHG"."1970" IS NULL AND 
+      "GHG"."1980" IS NULL AND
+	  "GHG"."1990" IS NULL AND
+	  "GHG"."2000" IS NULL AND
+	  "GHG"."2010" IS NULL AND
+	  "GHG"."2018" IS NULL);
